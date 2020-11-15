@@ -1,259 +1,174 @@
-import javax.swing.*;
-import java.awt.*;
-import java.awt.event.*;
+// Java program to write a student 
+// information in JFrame and 
+// storing it in a file 
   
-class MyFrame extends JFrame implements ActionListener {
-    // Components of the Form 
-    private Container c; 
-    private JLabel title; 
-    private JLabel name; 
-    private JTextField tname; 
-    private JLabel mno; 
-    private JTextField tmno; 
-    private JLabel gender; 
-    private JRadioButton male; 
-    private JRadioButton female; 
-    private ButtonGroup gengp; 
-    private JLabel dob; 
-    private JComboBox date; 
-    private JComboBox month; 
-    private JComboBox year; 
-    private JLabel add; 
-    private JTextArea tadd; 
-    private JCheckBox term; 
-    private JButton sub; 
-    private JButton reset; 
-    private JTextArea tout; 
-    private JLabel res; 
-    private JTextArea resadd;
-
-    private String dates[] 
-        = { "1", "2", "3", "4", "5", 
-            "6", "7", "8", "9", "10", 
-            "11", "12", "13", "14", "15", 
-            "16", "17", "18", "19", "20", 
-            "21", "22", "23", "24", "25", 
-            "26", "27", "28", "29", "30", 
-            "31" }; 
-    private String months[] 
-        = { "Jan", "Feb", "Mar", "Apr", 
-            "May", "Jun", "July", "Aug", 
-            "Sup", "Oct", "Nov", "Dec" }; 
-    private String years[] 
-        = { "1995", "1996", "1997", "1998", 
-            "1999", "2000", "2001", "2002", 
-            "2003", "2004", "2005", "2006", 
-            "2007", "2008", "2009", "2010", 
-            "2011", "2012", "2013", "2014", 
-            "2015", "2016", "2017", "2018", 
-            "2019" }; 
+import javax.swing.*; 
+import java.awt.*; 
+import java.awt.event.*; 
+import java.io.*; 
   
-    // constructor, to initialize the components 
-    // with default values. 
-    public MyFrame() { 
-        setTitle("Registration Form"); 
-        setBounds(300, 90, 900, 600); 
-        setDefaultCloseOperation(EXIT_ON_CLOSE); 
-        setResizable(false); 
+public class GFG { 
   
-        c = getContentPane(); 
-        c.setLayout(null); 
-  
-        title = new JLabel("Registration Form"); 
-        title.setFont(new Font("Arial", Font.PLAIN, 30)); 
-        title.setSize(300, 30); 
-        title.setLocation(300, 30); 
-        c.add(title); 
-  
-        name = new JLabel("Name"); 
-        name.setFont(new Font("Arial", Font.PLAIN, 20)); 
-        name.setSize(100, 20); 
-        name.setLocation(100, 100); 
-        c.add(name); 
-  
-        tname = new JTextField(); 
-        tname.setFont(new Font("Arial", Font.PLAIN, 15)); 
-        tname.setSize(190, 20); 
-        tname.setLocation(200, 100); 
-        c.add(tname); 
-  
-        mno = new JLabel("Mobile"); 
-        mno.setFont(new Font("Arial", Font.PLAIN, 20)); 
-        mno.setSize(100, 20); 
-        mno.setLocation(100, 150); 
-        c.add(mno); 
-  
-        tmno = new JTextField(); 
-        tmno.setFont(new Font("Arial", Font.PLAIN, 15)); 
-        tmno.setSize(150, 20); 
-        tmno.setLocation(200, 150); 
-        c.add(tmno); 
-  
-        gender = new JLabel("Gender"); 
-        gender.setFont(new Font("Arial", Font.PLAIN, 20)); 
-        gender.setSize(100, 20); 
-        gender.setLocation(100, 200); 
-        c.add(gender); 
-  
-        male = new JRadioButton("Male"); 
-        male.setFont(new Font("Arial", Font.PLAIN, 15)); 
-        male.setSelected(true); 
-        male.setSize(75, 20); 
-        male.setLocation(200, 200); 
-        c.add(male); 
-  
-        female = new JRadioButton("Female"); 
-        female.setFont(new Font("Arial", Font.PLAIN, 15)); 
-        female.setSelected(false); 
-        female.setSize(80, 20); 
-        female.setLocation(275, 200); 
-        c.add(female); 
-  
-        gengp = new ButtonGroup(); 
-        gengp.add(male); 
-        gengp.add(female); 
-  
-        dob = new JLabel("DOB"); 
-        dob.setFont(new Font("Arial", Font.PLAIN, 20)); 
-        dob.setSize(100, 20); 
-        dob.setLocation(100, 250); 
-        c.add(dob); 
-  
-        date = new JComboBox(dates); 
-        date.setFont(new Font("Arial", Font.PLAIN, 15)); 
-        date.setSize(50, 20); 
-        date.setLocation(200, 250); 
-        c.add(date); 
-  
-        month = new JComboBox(months); 
-        month.setFont(new Font("Arial", Font.PLAIN, 15)); 
-        month.setSize(60, 20); 
-        month.setLocation(250, 250); 
-        c.add(month); 
-  
-        year = new JComboBox(years); 
-        year.setFont(new Font("Arial", Font.PLAIN, 15)); 
-        year.setSize(60, 20); 
-        year.setLocation(320, 250); 
-        c.add(year); 
-  
-        add = new JLabel("Address"); 
-        add.setFont(new Font("Arial", Font.PLAIN, 20)); 
-        add.setSize(100, 20); 
-        add.setLocation(100, 300); 
-        c.add(add); 
-  
-        tadd = new JTextArea(); 
-        tadd.setFont(new Font("Arial", Font.PLAIN, 15)); 
-        tadd.setSize(200, 75); 
-        tadd.setLocation(200, 300); 
-        tadd.setLineWrap(true); 
-        c.add(tadd); 
-  
-        term = new JCheckBox("Accept Terms And Conditions."); 
-        term.setFont(new Font("Arial", Font.PLAIN, 15)); 
-        term.setSize(250, 20); 
-        term.setLocation(150, 400); 
-        c.add(term); 
-  
-        sub = new JButton("Submit"); 
-        sub.setFont(new Font("Arial", Font.PLAIN, 15)); 
-        sub.setSize(100, 20); 
-        sub.setLocation(150, 450); 
-        sub.addActionListener(this); 
-        c.add(sub); 
-  
-        reset = new JButton("Reset"); 
-        reset.setFont(new Font("Arial", Font.PLAIN, 15)); 
-        reset.setSize(100, 20); 
-        reset.setLocation(270, 450); 
-        reset.addActionListener(this); 
-        c.add(reset); 
-  
-
-        //Setting up the text
-        tout = new JTextArea(); 
-        tout.setFont(new Font("Arial", Font.ITALIC, 32)); 
-        tout.setSize(300, 400); 
-        tout.setLocation(500, 100); 
-        tout.setLineWrap(true); 
-        tout.setEditable(false);
-        c.add(tout); 
-  
-        res = new JLabel(""); 
-        res.setFont(new Font("Arial", Font.PLAIN, 20)); 
-        res.setSize(500, 25); 
-        res.setLocation(100, 500); 
-        c.add(res); 
-  
-        resadd = new JTextArea(); 
-        resadd.setFont(new Font("Arial", Font.PLAIN, 15)); 
-        resadd.setSize(200, 75); 
-        resadd.setLocation(580, 175); 
-        resadd.setLineWrap(true); 
-        c.add(resadd); 
-  
-        setVisible(true); 
-    } 
-  
-    // method actionPerformed() 
-    // to get the action performed 
-    // by the user and act accordingly 
-    public void actionPerformed(ActionEvent e) 
+    // Function to write a student 
+    // information in JFrame and 
+    // storing it in a file 
+    public static void StudentInfo() 
     { 
-        if (e.getSource() == sub) { 
-            if (term.isSelected()) { 
-                String data1; 
-                String data 
-                    = "Name : "
-                      + tname.getText() + "\n"
-                      + "Mobile : "
-                      + tmno.getText() + "\n"; 
-                if (male.isSelected()) 
-                    data1 = "Gender : Male"
-                            + "\n"; 
-                else
-                    data1 = "Gender : Female"
-                            + "\n"; 
-                String data2 
-                    = "DOB : "
-                      + (String)date.getSelectedItem() 
-                      + "/" + (String)month.getSelectedItem() 
-                      + "/" + (String)year.getSelectedItem() 
-                      + "\n"; 
   
-                String data3 = "Address : " + tadd.getText(); 
-                tout.setText(data + data1 + data2 + data3); 
-                tout.setEditable(false); 
-                res.setText("Registration Successfully.."); 
-            } 
-            else { 
-                tout.setText(""); 
-                resadd.setText(""); 
-                res.setText("Please accept the"
-                            + " terms & conditions.."); 
-            } 
-        } 
+        // Creating a new frame using JFrame 
+        JFrame f 
+            = new JFrame( 
+                "Student Details Form"); 
   
-        else if (e.getSource() == reset) { 
-            String def = ""; 
-            tname.setText(def); 
-            tadd.setText(def); 
-            tmno.setText(def); 
-            res.setText(def); 
-            tout.setText(def); 
-            term.setSelected(false); 
-            date.setSelectedIndex(0); 
-            month.setSelectedIndex(0); 
-            year.setSelectedIndex(0); 
-            resadd.setText(def); 
-        } 
+        // Creating the labels 
+        JLabel l1, l2, l3, l4, l5; 
+  
+        // Creating three text fields. 
+        // One for student name, one for 
+        // college mail ID  and one 
+        // for  Mobile No 
+        JTextField t1, t2, t3; 
+  
+        // Creating two JComboboxes 
+        // one for Branch and one 
+        // for Section 
+        JComboBox j1, j2; 
+  
+        // Creating  two buttons 
+        JButton b1, b2; 
+  
+        // Naming the labels and setting 
+        // the bounds for the labels 
+        l1 = new JLabel("Student Name:"); 
+        l1.setBounds(50, 50, 100, 30); 
+        l2 = new JLabel("College Email ID:"); 
+        l2.setBounds(50, 120, 120, 30); 
+        l3 = new JLabel("Branch:"); 
+        l3.setBounds(50, 190, 50, 30); 
+        l4 = new JLabel("Section:"); 
+        l4.setBounds(420, 50, 70, 30); 
+        l5 = new JLabel("Mobile No:"); 
+        l5.setBounds(420, 120, 70, 30); 
+  
+        // Creating the textfields and 
+        // setting the bounds for textfields 
+        t1 = new JTextField(); 
+        t1.setBounds(150, 50, 130, 30); 
+        t2 = new JTextField(); 
+        t2.setBounds(160, 120, 130, 30); 
+        t3 = new JTextField(); 
+        t3.setBounds(490, 120, 130, 30); 
+  
+        // Creating two string arrays one for 
+        // braches and other for sections 
+        String s1[] 
+            = { "  ", "CSE", "ECE", "EEE", 
+                "CIVIL", "MEC", "Others" }; 
+        String s2[] 
+            = { "  ", "Section-A", "Section-B", 
+                "Section-C", "Section-D", 
+                "Section-E" }; 
+  
+        // Creating two JComboBoxes one for 
+        // selecting branch and other for 
+        // selecting the section 
+        // and setting the bounds 
+        j1 = new JComboBox(s1); 
+        j1.setBounds(120, 190, 100, 30); 
+        j2 = new JComboBox(s2); 
+        j2.setBounds(470, 50, 140, 30); 
+  
+        // Creating one button for Saving 
+        // and other button to close 
+        // and setting the bounds 
+        b1 = new JButton("Save"); 
+        b1.setBounds(150, 300, 70, 30); 
+        b2 = new JButton("close"); 
+        b2.setBounds(420, 300, 70, 30); 
+  
+        // Adding action listener 
+        b1.addActionListener(new ActionListener() { 
+            public void actionPerformed(ActionEvent e) 
+            { 
+  
+                // Getting the text from text fields 
+                // and JComboboxes 
+                // and copying it to a strings 
+  
+                String s1 = t1.getText(); 
+                String s2 = t2.getText(); 
+                String s3 = j1.getSelectedItem() + ""; 
+                String s4 = j2.getSelectedItem() + ""; 
+                String s5 = t3.getText(); 
+                if (e.getSource() == b1) { 
+                    try { 
+  
+                        // Creating a file and 
+                        // writing the data 
+                        // into a Textfile. 
+                        FileWriter w 
+                            = new FileWriter( 
+                                "GFG.txt", true); 
+  
+                        w.write(s1 + "\n"); 
+                        w.write(s2 + "\n"); 
+                        w.write(s3 + "\n"); 
+                        w.write(s4 + "\n"); 
+                        w.write(s5 + "\n"); 
+                        w.close(); 
+                    } 
+                    catch (Exception ae) { 
+                        System.out.println(ae); 
+                    } 
+                } 
+  
+                // Shows a Pop up Message when 
+                // save button is clicked 
+                JOptionPane 
+                    .showMessageDialog( 
+                        f, 
+                        "Successfully Saved"
+                            + " The Details"); 
+            } 
+        }); 
+  
+        // Action listener to close the form 
+        b2.addActionListener(new ActionListener() { 
+            public void actionPerformed(ActionEvent e) 
+            { 
+                f.dispose(); 
+            } 
+        }); 
+  
+        // Default method for closing the frame 
+        f.addWindowListener(new WindowAdapter() { 
+            public void windowClosing(WindowEvent e) 
+            { 
+                System.exit(0); 
+            } 
+        }); 
+  
+        // Adding the created objects 
+        // to the frame 
+        f.add(l1); 
+        f.add(t1); 
+        f.add(l2); 
+        f.add(t2); 
+        f.add(l3); 
+        f.add(j1); 
+        f.add(l4); 
+        f.add(j2); 
+        f.add(l5); 
+        f.add(t3); 
+        f.add(b1); 
+        f.add(b2); 
+        f.setLayout(null); 
+        f.setSize(700, 600); 
+        f.setVisible(true); 
+    } 
+    // Driver code 
+    public static void main(String args[]) 
+    { 
+        StudentInfo(); 
     } 
 } 
-  
-// Driver Code 
-public class Miniproj {
-    public static void main(String[] args) throws Exception { 
-        MyFrame f = new MyFrame();
-    }
-}
