@@ -7,7 +7,7 @@ import java.awt.*;
 import java.awt.event.*; 
 import java.io.*; 
   
-public class GFG { 
+public class Miniproj { 
   
     // Function to write a student 
     // information in JFrame and 
